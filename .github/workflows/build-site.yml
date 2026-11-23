@@ -36,17 +36,17 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0 # added-date derivation walks the README's history
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
       - run: npm ci
       # Rolling probe cache: unique key so every run saves, restore-keys pulls
       # the most recent. A miss just means a full re-probe (~700 API calls,
       # within the GITHUB_TOKEN hourly budget) — degraded never, slower once.
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: |
             data/npm-map.json
@@ -67,8 +67,8 @@ jobs:
           node scripts/probe-stars.mjs
           node scripts/probe-readmes.mjs
           node scripts/build-site.mjs
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: docs
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
