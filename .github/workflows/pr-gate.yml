@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: Resolve the pull request
         id: pr
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const { owner, repo } = context.repo
@@ -51,11 +51,11 @@ jobs:
             core.setOutput('created_at', pr.created_at)
 
       # Trusted code only: the base repo's default branch, never the PR's.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         if: steps.pr.outputs.found == 'true'
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         if: steps.pr.outputs.found == 'true'
         with:
           node-version: 22
@@ -128,7 +128,7 @@ jobs:
 
       - name: Report result on the PR
         if: steps.pr.outputs.found == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           NOTHING_TO_CHECK: ${{ steps.extract.outputs.none }}
           CHECK_OUTCOME: ${{ steps.check.outcome }}
