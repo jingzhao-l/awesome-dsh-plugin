@@ -34,7 +34,7 @@ jobs:
   regate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v8
         env:
           # Raised from 12 when re-running stale verdicts was added: that rule
           # has a one-off backlog to clear, and at 12 per six hours a gate fix
